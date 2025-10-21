@@ -2,15 +2,28 @@ import streamlit as st
 import preprocessor, helper
 import matplotlib.pyplot as plt
 
-# --- FONT FIX START ---
-# Matplotlib requires a font that reliably supports colored emojis. 
-# We'll try a common font known for wide Unicode support.
-# We also set the Matplotlib font family explicitly for plotting elements.
+# --- FONT FIX START (Updated for maximum compatibility) ---
+# We are trying a font known for excellent Unicode/Emoji coverage (like Noto Color Emoji)
+# and also increasing the font size slightly to make the labels more readable.
 try:
-    plt.rcParams['font.family'] = 'DejaVu Sans'
-    plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Segoe UI Emoji', 'Noto Color Emoji'] 
-except:
-    # Fallback for environments where these fonts aren't available
+    # Attempt to set a highly compatible font for Unicode/Emojis
+    # Note: 'Arial Unicode MS' or 'Noto Sans CJK JP' are often reliable if available.
+    # We will prioritize Noto Color Emoji and fall back.
+    plt.rcParams['font.family'] = 'sans-serif'
+    # Use a list for font lookup to increase chances of finding one that works
+    plt.rcParams['font.sans-serif'] = ['Noto Color Emoji', 'Segoe UI Emoji', 'DejaVu Sans', 'Arial Unicode MS', 'sans-serif'] 
+    plt.rcParams['font.size'] = 10 # Set a standard font size for plot labels
+
+    # If you need to ensure the font is set explicitly for the entire plot text:
+    # from matplotlib import font_manager as fm
+    # font_paths = fm.findSystemFonts(fontpaths=None, fontext='ttf')
+    # if any('NotoColorEmoji' in path for path in font_paths):
+    #     plt.rcParams['font.sans-serif'] = ['Noto Color Emoji', 'sans-serif']
+    # elif any('Segoe UI Emoji' in path for path in font_paths):
+    #     plt.rcParams['font.sans-serif'] = ['Segoe UI Emoji', 'sans-serif']
+
+except Exception as e:
+    st.error(f"Error setting font: {e}")
     plt.rcParams['font.family'] = 'sans-serif' 
 # --- FONT FIX END ---
 import seaborn as sns

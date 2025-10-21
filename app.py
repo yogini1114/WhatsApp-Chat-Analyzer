@@ -2,7 +2,17 @@ import streamlit as st
 import preprocessor, helper
 import matplotlib.pyplot as plt
 
-plt.rcParams['font.family'] = 'Segoe UI Emoji'  # For Windows
+# --- FONT FIX START ---
+# Matplotlib requires a font that reliably supports colored emojis. 
+# We'll try a common font known for wide Unicode support.
+# We also set the Matplotlib font family explicitly for plotting elements.
+try:
+    plt.rcParams['font.family'] = 'DejaVu Sans'
+    plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Segoe UI Emoji', 'Noto Color Emoji'] 
+except:
+    # Fallback for environments where these fonts aren't available
+    plt.rcParams['font.family'] = 'sans-serif' 
+# --- FONT FIX END ---
 import seaborn as sns
 
 st.sidebar.title("Whatsapp Chat Analyzer")

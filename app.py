@@ -1,6 +1,7 @@
 import streamlit as st
 import preprocessor, helper
 import matplotlib.pyplot as plt
+import plotly.express as px  
 
 # --- FONT FIX START (Final attempt for font compatibility) ---
 # We prioritize the system's default sans-serif and use a large list of 
@@ -9,7 +10,7 @@ try:
     plt.rcParams['font.family'] = 'sans-serif'
     # Adding a massive list of known emoji-supporting fonts to increase the chance of success
     plt.rcParams['font.sans-serif'] = [
-        'Noto Color Emoji', 'Segoe UI Emoji', 'Apple Color Emoji', 'EmojiOne', 
+        'Noto Color Emoji', 'Segoe UI Emoji', 'Apple Color Emoji', 'EmojiOne',
         'DejaVu Sans', 'Arial Unicode MS', 'sans-serif'
     ] 
     plt.rcParams['font.size'] = 10 # Standard font size
